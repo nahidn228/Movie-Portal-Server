@@ -66,7 +66,12 @@ async function run() {
     // Featured Movies - 6 Highest Rated
     app.get("/featuredMovies", async (req, res) => {
       const cursor = movieCollection.find().sort({ rating: -1 }).limit(6);
-
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    // Latest Release - 6 sort by year
+    app.get("/latestRelease", async (req, res) => {
+      const cursor = movieCollection.find().sort({ releaseYear: -1 }).limit(6);
       const result = await cursor.toArray();
       res.send(result);
     });
