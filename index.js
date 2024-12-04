@@ -63,6 +63,14 @@ async function run() {
       res.send(result);
     });
 
+    // Featured Movies - 6 Highest Rated
+    app.get("/featuredMovies", async (req, res) => {
+      const cursor = movieCollection.find().sort({ rating: -1 }).limit(6);
+
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // //DELETE
     // app.delete("/movies/:id", async (req, res) => {
     //   const id = req.params.id;
