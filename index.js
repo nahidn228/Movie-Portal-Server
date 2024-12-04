@@ -34,6 +34,9 @@ async function run() {
     // await client.connect();
 
     const movieCollection = client.db("movieCollectionDB").collection("movies");
+    const upcomingMovie = client
+      .db("movieCollectionDB")
+      .collection("UpcomingMovie");
     // const authUserCollection = client
     //   .db("userManagementDB")
     //   .collection("authUser");
@@ -53,13 +56,19 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // READ
+    app.get("/UpcomingMovie", async (req, res) => {
+      const cursor = upcomingMovie.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     //DELETE
     app.delete("/movies/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      // const result = await movieCollection.deleteOne(query);
-      // res.send(result);
+      const result = await movieCollection.deleteOne(query);
+      res.send(result);
     });
 
     // //Find
