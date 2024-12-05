@@ -34,6 +34,9 @@ async function run() {
     // await client.connect();
 
     const movieCollection = client.db("movieCollectionDB").collection("movies");
+    const favoriteMovieCollection = client
+      .db("movieCollectionDB")
+      .collection("favoriteMovie");
     const upcomingMovie = client
       .db("movieCollectionDB")
       .collection("UpcomingMovie");
@@ -69,6 +72,7 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
     // Latest Release - 6 sort by year
     app.get("/latestRelease", async (req, res) => {
       const cursor = movieCollection.find().sort({ releaseYear: -1 }).limit(6);
@@ -84,13 +88,28 @@ async function run() {
       res.send(result);
     });
 
-    // //Find
-    // app.get("/movies/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await movieCollection.findOne(query);
-    //   res.send(result);
-    // });
+    //Find
+    app.get("/movies/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await movieCollection.findOne(query);
+      res.send(result);
+    });
+
+    // favorite  movie CREATE
+    app.post("/favorite-movies", async (req, res) => {
+      const favoriteMovie = req.body;
+      console.log(favoriteMovie);
+      const result = await favoriteMovieCollection.insertOne(favoriteMovie);
+      res.send(result);
+    });
+
+    // favorite  movie READ
+    app.get("/favorite-movies", async (req, res) => {
+      const cursor = favoriteMovieCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // //UPDATE
     // app.put("/movies/:id", async (req, res) => {
