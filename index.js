@@ -113,15 +113,15 @@ async function run() {
     //favorite  movie DELETE
     app.delete("/favorite-movies/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: id };
+      const query = { _id: new ObjectId(id) };
       const result = await favoriteMovieCollection.deleteOne(query);
       res.send(result);
     });
 
     //favorite  movie Find
-    app.get("/favorite-movies/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: id };
+    app.get("/favorite-movies/:email", async (req, res) => {
+      const email = req.params.id;
+      const query = { userEmail: email };
       const result = await favoriteMovieCollection.findOne(query);
       res.send(result);
     });
