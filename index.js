@@ -48,7 +48,6 @@ async function run() {
     app.post("/movies", async (req, res) => {
       const movies = req.body;
       console.log(movies);
-
       const result = await movieCollection.insertOne(movies);
       res.send(result);
     });
@@ -111,24 +110,42 @@ async function run() {
       res.send(result);
     });
 
-    // //UPDATE
-    // app.put("/movies/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const filter = { _id: new ObjectId(id) };
-    //   const options = { upsert: true };
-    //   const updateUser = req.body;
-    //   const updated = {
-    //     $set: {
-    //       name: updateUser.name,
-    //       email: updateUser.email,
-    //       photo: updateUser.photo,
-    //       gender: updateUser.gender,
-    //       status: updateUser.status,
-    //     },
-    //   };
-    //   const result = await movieCollection.updateOne(filter, updated, options);
-    //   res.send(result);
-    // });
+    //favorite  movie DELETE
+    app.delete("/favorite-movies/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: id };
+      const result = await favoriteMovieCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    //favorite  movie Find
+    app.get("/favorite-movies/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: id };
+      const result = await favoriteMovieCollection.findOne(query);
+      res.send(result);
+    });
+
+    //UPDATE
+    app.put("/movies/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateUser = req.body;
+      const updated = {
+        $set: {
+          poster: updateUser.poster,
+          title: updateUser.title,
+          genre: updateUser.genre,
+          duration: updateUser.duration,
+          releaseYear: updateUser.releaseYear,
+          rating: updateUser.rating,
+          summary: updateUser.summary,
+        },
+      };
+      const result = await movieCollection.updateOne(filter, updated, options);
+      res.send(result);
+    });
 
     //authUser from firebase
 
