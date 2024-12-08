@@ -57,7 +57,8 @@ This is the server-side implementation of the **Movie Portal** project. The back
    - **Body**: Movie details as JSON (e.g., title, genre, releaseYear, etc.).
 
 2. **Get All Movies**  
-   `GET /movies`  
+   `GET /movies` 
+   `https://full-stack-go.vercel.app/movies` 
    - Retrieves all movies.
 
 3. **Get a Single Movie**  
@@ -74,11 +75,13 @@ This is the server-side implementation of the **Movie Portal** project. The back
    - Deletes a movie by ID.
 
 6. **Get Featured Movies**  
-   `GET /featuredMovies`  
+   `GET /featuredMovies`
+   `https://full-stack-go.vercel.app/featuredMovies`  
    - Retrieves the top 6 highest-rated movies.
 
 7. **Get Latest Releases**  
-   `GET /latestRelease`  
+   `GET /latestRelease`
+   `https://full-stack-go.vercel.app/latestRelease`  
    - Retrieves the 6 most recent movie releases.
 
 ---
@@ -105,7 +108,8 @@ This is the server-side implementation of the **Movie Portal** project. The back
 
 ### Upcoming Movies Endpoint
 1. **Get Upcoming Movies**  
-   `GET /UpcomingMovie`  
+   `GET /UpcomingMovie` 
+   `https://full-stack-go.vercel.app/UpcomingMovie` 
    - Retrieves a list of upcoming movies.
 
 ---
